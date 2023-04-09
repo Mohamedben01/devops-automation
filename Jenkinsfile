@@ -1,8 +1,5 @@
 pipeline {
    agent any
-   tools {
-      maven: "maven_3_9_1"
-   }
    stages {
       stage("build") {
           steps {
@@ -10,9 +7,10 @@ pipeline {
              sh 'mvn clean install'
           }
       }
-       stage("test") {
+       stage("build docker image") {
            steps {
-              echo "testing the application..."
+              echo "building docker image..."
+              sh 'docker build -t mohamed01ben/devops-integration-jenkins .'
            }
        }
       stage("deploy") {
